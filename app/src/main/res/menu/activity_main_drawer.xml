@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Kategori">
+        <menu>
+            <item
+                android:id="@+id/bukhori"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Shahih Bukhari" />
+            <item
+                android:id="@+id/muslim"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Shahih Muslim" />
+            <item
+                android:id="@+id/tentang"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sumber Terbuka" />
+        </menu>
+    </item>
+
+</menu>
