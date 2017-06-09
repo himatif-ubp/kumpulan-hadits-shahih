@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface BabContract {
 
     interface Presenter {
-        void doGetData();
+        void doGetData(int hadits, int kitab);
     }
 
     interface View {
@@ -20,6 +20,6 @@ public interface BabContract {
     }
 
     interface Repository{
-        ArrayList<BabModel> getAllData();
+        ArrayList<BabModel> getAllData(int hadits, int kitab);
     }
 }

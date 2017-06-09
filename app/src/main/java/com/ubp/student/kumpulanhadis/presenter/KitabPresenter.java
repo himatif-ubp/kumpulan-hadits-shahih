@@ -1,6 +1,7 @@
 package com.ubp.student.kumpulanhadis.presenter;
 
 import com.ubp.student.kumpulanhadis.contract.KitabContract;
+import com.ubp.student.kumpulanhadis.model.KitabModel;
 import com.ubp.student.kumpulanhadis.repository.KitabRepository;
 
 /**

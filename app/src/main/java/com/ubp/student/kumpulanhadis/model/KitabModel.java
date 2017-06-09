@@ -10,30 +10,40 @@ import java.io.Serializable;
 
 public class KitabModel extends SugarRecord<KitabModel> implements Serializable {
 
-    String nama;
-    String deskripsi;
+    int haditsKode;
+    int kitabKode;
+    String kitab;
 
     public KitabModel() {
     }
 
-    public KitabModel(String nama, String deskripsi) {
-        this.nama = nama;
-        this.deskripsi = deskripsi;
+    public KitabModel(int haditsKode, String kitab, int kitabKode) {
+        this.haditsKode = haditsKode;
+        this.kitab = kitab;
+        this.kitabKode = kitabKode;
     }
 
-    public String getNama() {
-        return nama;
+    public int getHaditsKode() {
+        return haditsKode;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setHaditsKode(int haditsKode) {
+        this.haditsKode = haditsKode;
     }
 
-    public String getDeskripsi() {
-        return deskripsi;
+    public int getKitabKode() {
+        return kitabKode;
     }
 
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public void setKitabKode(int kitabKode) {
+        this.kitabKode = kitabKode;
+    }
+
+    public String getKitab() {
+        return kitab;
+    }
+
+    public void setKitab(String kitab) {
+        this.kitab = kitab;
     }
 }

@@ -46,15 +46,21 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final KitabModel kitabModel = list.get(position);
-        holder.tvJudul.setText(kitabModel.getNama());
-        holder.tvDeskripsi.setText(kitabModel.getDeskripsi());
+        final KitabModel model = list.get(position);
+        holder.tvJudul.setText("Kitab : "+model.getKitab());
+        if(model.getHaditsKode() == 1) {
+            holder.tvDeskripsi.setText("Hadits Shahih Al Bukhari");
+        }else if(model.getHaditsKode() == 2){
+            holder.tvDeskripsi.setText("Hadits Shahih Muslim");
+        }else{
+            holder.tvDeskripsi.setText("");
+        }
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(kitabModel);
+                listener.onItemClick(model);
             }
         });
     }

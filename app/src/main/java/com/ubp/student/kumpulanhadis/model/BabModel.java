@@ -8,52 +8,52 @@ import java.io.Serializable;
  * Created by Dizzay on 6/8/2017.
  */
 
-public class BabModel extends SugarRecord<BabModel> implements Serializable{
+public class BabModel extends SugarRecord<BabModel> implements Serializable {
 
-    String nama;
-    String deskripsi;
-    String isi;
-    String type;
+    int haditsKode;
+    int kitabKode;
+    int babKode;
+    String bab;
 
     public BabModel() {
     }
 
-    public BabModel(String nama, String deskripsi, String isi, String type) {
-        this.nama = nama;
-        this.deskripsi = deskripsi;
-        this.isi = isi;
-        this.type = type;
+    public BabModel(int haditsKode, int kitabKode, int babKode, String bab) {
+        this.haditsKode = haditsKode;
+        this.kitabKode = kitabKode;
+        this.babKode = babKode;
+        this.bab = bab;
     }
 
-    public String getNama() {
-        return nama;
+    public int getHaditsKode() {
+        return haditsKode;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setHaditsKode(int haditsKode) {
+        this.haditsKode = haditsKode;
     }
 
-    public String getDeskripsi() {
-        return deskripsi;
+    public int getKitabKode() {
+        return kitabKode;
     }
 
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public void setKitabKode(int kitabKode) {
+        this.kitabKode = kitabKode;
     }
 
-    public String getIsi() {
-        return isi;
+    public int getBabKode() {
+        return babKode;
     }
 
-    public void setIsi(String isi) {
-        this.isi = isi;
+    public void setBabKode(int babKode) {
+        this.babKode = babKode;
     }
 
-    public String getType() {
-        return type;
+    public String getBab() {
+        return bab;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBab(String bab) {
+        this.bab = bab;
     }
 }

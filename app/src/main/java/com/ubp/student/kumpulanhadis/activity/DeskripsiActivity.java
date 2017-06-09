@@ -1,47 +1,62 @@
 package com.ubp.student.kumpulanhadis.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideOption;
 import com.ubp.student.kumpulanhadis.R;
+import com.ubp.student.kumpulanhadis.contract.DeskripsiContract;
+import com.ubp.student.kumpulanhadis.model.BabModel;
+import com.ubp.student.kumpulanhadis.model.HaditsModel;
+import com.ubp.student.kumpulanhadis.presenter.DeskripsiPresenter;
+import com.ubp.student.kumpulanhadis.util.Static;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DeskripsiActivity extends AppCompatActivity {
+public class DeskripsiActivity extends AppCompatActivity implements DeskripsiContract.View {
 
     @BindView(R.id.iv_thumbnail)
     ImageView ivThumbnail;
+    @BindView(R.id.tv_judul)
+    TextView tvJudul;
+    @BindView(R.id.tv_isi)
+    TextView tvIsi;
+    private DeskripsiPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deskripsi);
         ButterKnife.bind(this);
+        setActionBar();
+        initPresenter();
+        setTitle();
 
+    }
+
+    private void initPresenter() {
+        presenter = new DeskripsiPresenter(this);
+    }
+
+    private void setTitle() {
+        BabModel babModel = (BabModel) getIntent().getSerializableExtra(Static.BAB_MODEL);
+        if (babModel != null) {
+            setTitle("Bab : " + babModel.getBab());
+            tvJudul.setText(babModel.getBab());
+            presenter.doGetData(babModel.getHaditsKode(), babModel.getKitabKode(), babModel.getBabKode());
+        }
+    }
+
+    private void setActionBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        Glide.with(getApplicationContext()).load("http://www.wallpapers-web.com/data/out/133/4935995-madina-wallpapers.jpg").into(ivThumbnail);
     }
 
     @Override
@@ -53,5 +68,14 @@ public class DeskripsiActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void doShowData(ArrayList<HaditsModel> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(HaditsModel haditsModel:list){
+            stringBuilder.append(haditsModel.getHadits()+"\n");
+        }
+        tvIsi.setText(stringBuilder.toString());
     }
 }

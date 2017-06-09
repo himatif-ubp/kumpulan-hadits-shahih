@@ -1,10 +1,14 @@
 package com.ubp.student.kumpulanhadis.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.ubp.student.kumpulanhadis.BulkData;
 import com.ubp.student.kumpulanhadis.R;
+import com.ubp.student.kumpulanhadis.util.MyPref;
+import com.ubp.student.kumpulanhadis.util.Static;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -12,26 +16,22 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-        Thread thread = new Thread(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    if(!MyPref.getBoolean(getApplicationContext(), Static.LOADED)){
+                        new BulkData().start();
+                        MyPref.putBoolean(getApplicationContext(), Static.LOADED, true);
+                    }
+                }catch (Exception e){
+
                 }finally {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
-                        }
-                    });
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
             }
-        });
-        thread.start();
+        }, 2500);
     }
 
     @Override

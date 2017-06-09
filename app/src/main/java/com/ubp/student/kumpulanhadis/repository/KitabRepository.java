@@ -14,8 +14,10 @@ public class KitabRepository implements KitabContract.Repository {
 
     @Override
     public ArrayList<KitabModel> getAllData() {
-
-        return new ArrayList<>();
+        List<KitabModel> kitabModels = KitabModel.listAll(KitabModel.class);
+        ArrayList<KitabModel> list = new ArrayList<>();
+        list.addAll(kitabModels);
+        return list;
     }
 
 }

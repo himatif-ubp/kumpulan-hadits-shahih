@@ -18,7 +18,7 @@ public class BabPresenter implements BabContract.Presenter {
     }
 
     @Override
-    public void doGetData() {
-        view.doShowData(repository.getAllData());
+    public void doGetData(int hadits, int kitab) {
+        view.doShowData(repository.getAllData(hadits, kitab));
     }
 }

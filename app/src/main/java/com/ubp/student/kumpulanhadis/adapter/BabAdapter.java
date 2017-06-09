@@ -48,8 +48,8 @@ public class BabAdapter extends RecyclerView.Adapter<BabAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final BabModel model = list.get(position);
-        holder.tvJudul.setText(model.getNama());
-        holder.tvDeskripsi.setText(model.getDeskripsi());
+        holder.tvJudul.setText("BAB : "+model.getBab());
+        holder.tvDeskripsi.setVisibility(View.GONE);
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

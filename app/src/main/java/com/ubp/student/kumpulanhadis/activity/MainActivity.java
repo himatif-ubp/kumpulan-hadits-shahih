@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.ubp.student.kumpulanhadis.BulkData;
 import com.ubp.student.kumpulanhadis.R;
 import com.ubp.student.kumpulanhadis.adapter.KitabAdapter;
 import com.ubp.student.kumpulanhadis.contract.KitabContract;
@@ -73,14 +74,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main, menu);
-
         MenuItem searchItem = menu.findItem(R.id.action_search);
-
         SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-
         SearchView searchView = null;
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
@@ -93,17 +90,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_search) {
 //
 //            return true;
 //        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -121,23 +112,11 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
 //        if (id == R.id.nav_camera) {
 //            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
+//          }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -145,44 +124,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void doShowData(ArrayList<KitabModel> list) {
-
-        KitabModel kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Permulaan Wahyu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Iman", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-        kitabModel = new KitabModel("Kitab Ilmu", "Telah menceritakan kepada kami Muhammad bin Sinan berkata, telah menceritakan kepada kami Fulaih. Dan telah diriwayatkan pula hadits serupa dari jalan lain, yaitu Telah menceritakan kepadaku Ibrahim bin Al Mundzir berkata...");
-        list.add(kitabModel);
-
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         KitabAdapter kitabAdapter = new KitabAdapter(getApplicationContext(), list, new KitabAdapter.OnItemClickListener() {
