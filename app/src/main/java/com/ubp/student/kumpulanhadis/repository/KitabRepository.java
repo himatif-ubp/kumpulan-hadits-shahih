@@ -1,7 +1,8 @@
 package com.ubp.student.kumpulanhadis.repository;
 
+import com.ubp.student.kumpulanhadis.clients.model.ImamModel;
+import com.ubp.student.kumpulanhadis.clients.model.KitabModel;
 import com.ubp.student.kumpulanhadis.contract.KitabContract;
-import com.ubp.student.kumpulanhadis.model.KitabModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,17 @@ public class KitabRepository implements KitabContract.Repository {
 
     @Override
     public ArrayList<KitabModel> getAllData() {
-        List<KitabModel> kitabModels = KitabModel.listAll(KitabModel.class);
+        List<KitabModel> data = KitabModel.listAll(KitabModel.class);
         ArrayList<KitabModel> list = new ArrayList<>();
-        list.addAll(kitabModels);
+        list.addAll(data);
+        return list;
+    }
+
+    @Override
+    public ArrayList<KitabModel> searchByText(String text) {
+        List<KitabModel> data = KitabModel.findWithQuery(KitabModel.class, "select * from KITAB_MODEL where nama like '%"+text+"%'");
+        ArrayList<KitabModel> list = new ArrayList<>();
+        list.addAll(data);
         return list;
     }
 

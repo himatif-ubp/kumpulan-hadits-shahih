@@ -8,21 +8,19 @@ import java.io.Serializable;
  * Created by Dizzay on 6/8/2017.
  */
 
-public class BabModel extends SugarRecord<BabModel> implements Serializable {
+public class KitabModel2 extends SugarRecord implements Serializable {
 
     int haditsKode;
     int kitabKode;
-    int babKode;
-    String bab;
+    String kitab;
 
-    public BabModel() {
+    public KitabModel2() {
     }
 
-    public BabModel(int haditsKode, int kitabKode, int babKode, String bab) {
+    public KitabModel2(int haditsKode, String kitab, int kitabKode) {
         this.haditsKode = haditsKode;
+        this.kitab = kitab;
         this.kitabKode = kitabKode;
-        this.babKode = babKode;
-        this.bab = bab;
     }
 
     public int getHaditsKode() {
@@ -41,19 +39,11 @@ public class BabModel extends SugarRecord<BabModel> implements Serializable {
         this.kitabKode = kitabKode;
     }
 
-    public int getBabKode() {
-        return babKode;
+    public String getKitab() {
+        return kitab;
     }
 
-    public void setBabKode(int babKode) {
-        this.babKode = babKode;
-    }
-
-    public String getBab() {
-        return bab;
-    }
-
-    public void setBab(String bab) {
-        this.bab = bab;
+    public void setKitab(String kitab) {
+        this.kitab = kitab;
     }
 }

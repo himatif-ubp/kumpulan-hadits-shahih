@@ -1,7 +1,7 @@
 package com.ubp.student.kumpulanhadis.contract;
 
-import com.ubp.student.kumpulanhadis.model.BabModel;
-import com.ubp.student.kumpulanhadis.model.KitabModel;
+import com.ubp.student.kumpulanhadis.clients.model.BabModel;
+import com.ubp.student.kumpulanhadis.model.BabModel2;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,10 @@ import java.util.ArrayList;
 public interface BabContract {
 
     interface Presenter {
-        void doGetData(int hadits, int kitab);
+        void doGetData(int id);
+        ArrayList<BabModel> searchByText(String text);
+        ArrayList<BabModel> getAllDataFav();
+        ArrayList<BabModel> getAllDataFavSearchByText(String text);
     }
 
     interface View {
@@ -20,6 +23,9 @@ public interface BabContract {
     }
 
     interface Repository{
-        ArrayList<BabModel> getAllData(int hadits, int kitab);
+        ArrayList<BabModel> getAllData(int id);
+        ArrayList<BabModel> searchByText(String text);
+        ArrayList<BabModel> getAllDataFav();
+        ArrayList<BabModel> getAllDataFavSearchByText(String text);
     }
 }

@@ -1,6 +1,6 @@
 package com.ubp.student.kumpulanhadis.contract;
 
-import com.ubp.student.kumpulanhadis.model.HaditsModel;
+import com.ubp.student.kumpulanhadis.model.HaditsModel2;
 
 import java.util.ArrayList;
 
@@ -15,10 +15,10 @@ public interface DeskripsiContract {
     }
 
     interface View {
-        void doShowData(ArrayList<HaditsModel> list);
+        void doShowData(ArrayList<HaditsModel2> list);
     }
 
     interface Repository{
-        ArrayList<HaditsModel> getAllData(int hadits, int kitab, int bab);
+        ArrayList<HaditsModel2> getAllData(int hadits, int kitab, int bab);
     }
 }

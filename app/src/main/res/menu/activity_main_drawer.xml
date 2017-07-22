@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Kategori">
-        <menu>
+    <group>
             <item
-                android:id="@+id/bukhori"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Shahih Bukhari" />
+                android:id="@+id/nav_favourite"
+                android:icon="@drawable/ic_action_fav_true"
+                android:title="Favorit" />
+
             <item
-                android:id="@+id/muslim"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Shahih Muslim" />
+                android:id="@+id/nav_notif"
+                android:icon="@drawable/ic_action_notif"
+                android:title="Pemberitahuan" />
             <item
-                android:id="@+id/tentang"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Sumber Terbuka" />
-        </menu>
-    </item>
+                android:id="@+id/nav_sumber"
+                android:icon="@drawable/ic_action_source"
+                android:title="Sumber Hadits" />
+            <item
+                android:id="@+id/nav_tentang"
+                android:icon="@drawable/ic_action_about"
+                android:title="Tentang" />
+    </group>
 
 </menu>

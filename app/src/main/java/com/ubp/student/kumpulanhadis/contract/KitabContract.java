@@ -1,6 +1,7 @@
 package com.ubp.student.kumpulanhadis.contract;
 
-import com.ubp.student.kumpulanhadis.model.KitabModel;
+import com.ubp.student.kumpulanhadis.clients.model.ImamModel;
+import com.ubp.student.kumpulanhadis.clients.model.KitabModel;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public interface KitabContract {
 
     interface Presenter {
         void doGetData();
+        ArrayList<KitabModel> searchByText(String text);
     }
 
     interface View {
@@ -20,5 +22,6 @@ public interface KitabContract {
 
     interface Repository{
         ArrayList<KitabModel> getAllData();
+        ArrayList<KitabModel> searchByText(String text);
     }
 }

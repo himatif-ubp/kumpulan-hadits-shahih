@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,14 +28,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="10dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimaryDark"
-                        android:orientation="horizontal"></LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -52,9 +49,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Judul"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
+                            android:textColor="?android:attr/textColorTertiary"
+                            android:textSize="20dp" />
 
                         <TextView
                             android:id="@+id/tv_deskripsi"
@@ -64,10 +60,35 @@
                             android:ellipsize="end"
                             android:maxLines="3"
                             android:text="Deskripsi asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="italic" />
+                            android:textColor="@color/secondary_text"
+                            android:visibility="gone" />
 
                     </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#EEE"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_imam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:text="Hr. Al-Bukhori"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="italic" />
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -76,4 +97,4 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</RelativeLayout>

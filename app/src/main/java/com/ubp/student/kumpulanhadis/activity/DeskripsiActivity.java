@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.ubp.student.kumpulanhadis.R;
 import com.ubp.student.kumpulanhadis.contract.DeskripsiContract;
-import com.ubp.student.kumpulanhadis.model.BabModel;
-import com.ubp.student.kumpulanhadis.model.HaditsModel;
+import com.ubp.student.kumpulanhadis.model.BabModel2;
+import com.ubp.student.kumpulanhadis.model.HaditsModel2;
 import com.ubp.student.kumpulanhadis.presenter.DeskripsiPresenter;
 import com.ubp.student.kumpulanhadis.util.Static;
 
@@ -35,8 +35,8 @@ public class DeskripsiActivity extends AppCompatActivity implements DeskripsiCon
         setContentView(R.layout.activity_deskripsi);
         ButterKnife.bind(this);
         setActionBar();
-        initPresenter();
-        setTitle();
+//        initPresenter();
+//        setTitle();
 
     }
 
@@ -45,11 +45,11 @@ public class DeskripsiActivity extends AppCompatActivity implements DeskripsiCon
     }
 
     private void setTitle() {
-        BabModel babModel = (BabModel) getIntent().getSerializableExtra(Static.BAB_MODEL);
-        if (babModel != null) {
-            setTitle("Bab : " + babModel.getBab());
-            tvJudul.setText(babModel.getBab());
-            presenter.doGetData(babModel.getHaditsKode(), babModel.getKitabKode(), babModel.getBabKode());
+        BabModel2 babModel2 = (BabModel2) getIntent().getSerializableExtra(Static.BAB_MODEL);
+        if (babModel2 != null) {
+            setTitle("BAB : " + babModel2.getBab());
+            tvJudul.setText(babModel2.getBab());
+            presenter.doGetData(babModel2.getHaditsKode(), babModel2.getKitabKode(), babModel2.getBabKode());
         }
     }
 
@@ -71,10 +71,10 @@ public class DeskripsiActivity extends AppCompatActivity implements DeskripsiCon
     }
 
     @Override
-    public void doShowData(ArrayList<HaditsModel> list) {
+    public void doShowData(ArrayList<HaditsModel2> list) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(HaditsModel haditsModel:list){
-            stringBuilder.append(haditsModel.getHadits()+"\n");
+        for(HaditsModel2 haditsModel2 :list){
+            stringBuilder.append(haditsModel2.getHadits()+"\n\n");
         }
         tvIsi.setText(stringBuilder.toString());
     }

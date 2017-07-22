@@ -12,12 +12,15 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ubp.student.kumpulanhadis.R;
 import com.ubp.student.kumpulanhadis.adapter.BabAdapter;
+import com.ubp.student.kumpulanhadis.clients.model.BabModel;
+import com.ubp.student.kumpulanhadis.clients.model.KitabModel;
 import com.ubp.student.kumpulanhadis.contract.BabContract;
-import com.ubp.student.kumpulanhadis.model.BabModel;
-import com.ubp.student.kumpulanhadis.model.KitabModel;
+import com.ubp.student.kumpulanhadis.model.BabModel2;
+import com.ubp.student.kumpulanhadis.model.KitabModel2;
 import com.ubp.student.kumpulanhadis.presenter.BabPresenter;
 import com.ubp.student.kumpulanhadis.util.Static;
 
@@ -31,6 +34,8 @@ public class BabActivity extends AppCompatActivity implements BabContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private BabPresenter presenter;
+    long id;
+    BabAdapter babAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,38 +43,14 @@ public class BabActivity extends AppCompatActivity implements BabContract.View {
         setContentView(R.layout.activity_bab);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("BAB");
+        id = getIntent().getLongExtra(Static.KITAB_ID, 0);
         initPresenter();
-        settitle();
-    }
-
-    private void settitle() {
-        KitabModel kitabModel = (KitabModel) getIntent().getSerializableExtra(Static.KITAB_MODEL);
-        if(kitabModel != null){
-            setTitle("Kitab : " +kitabModel.getKitab());
-            presenter.doGetData(kitabModel.getHaditsKode(), kitabModel.getKitabKode());
-        }
     }
 
     private void initPresenter() {
         presenter = new BabPresenter(this);
-    }
-
-    @Override
-    public void doShowData(ArrayList<BabModel> list) {
-        BabAdapter babAdapter = new BabAdapter(getApplicationContext(), list, new BabAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BabModel model) {
-                Intent intent = new Intent(getApplicationContext(), DeskripsiActivity.class);
-                intent.putExtra(Static.BAB_MODEL, model);
-                startActivity(intent);
-            }
-        });
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(babAdapter);
-
+        presenter.doGetData((int) id);
     }
 
     @Override
@@ -84,6 +65,19 @@ public class BabActivity extends AppCompatActivity implements BabContract.View {
         SearchView searchView = null;
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    ArrayList<BabModel> list = presenter.searchByText(newText);
+                    setToAdapter(list, newText);
+                    return false;
+                }
+            });
         }
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(BabActivity.this.getComponentName()));
@@ -100,5 +94,44 @@ public class BabActivity extends AppCompatActivity implements BabContract.View {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void doShowData(ArrayList<BabModel> list) {
+        setToAdapter(list, null);
+
+    }
+
+    private void setToAdapter(ArrayList<BabModel> list, String spanndable) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        babAdapter = new BabAdapter(getApplicationContext(), list, new BabAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BabModel model) {
+                Intent intent = new Intent(getApplicationContext(), HaditsActivity.class);
+                intent.putExtra(Static.BAB_ID, model.getId());
+                startActivity(intent);
+            }
+        }, new BabAdapter.OnItemFavClickListener() {
+            @Override
+            public void onItemClick(BabModel model) {
+                if(model.isFavorite()){
+                    Toast.makeText(getApplicationContext(), Static.REMOVE_FAVOURITE, Toast.LENGTH_SHORT).show();
+                    BabModel babModel = BabModel.findById(BabModel.class, model.getId());
+                    babModel.setFavorite(false);
+                    babModel.save();
+                    model.setFavorite(false);
+                }else{
+                    Toast.makeText(getApplicationContext(), Static.ADD_FAVOURITE, Toast.LENGTH_SHORT).show();
+                    BabModel babModel = BabModel.findById(BabModel.class, model.getId());
+                    babModel.setFavorite(true);
+                    babModel.save();
+                    model.setFavorite(true);
+                }
+                babAdapter.notifyDataSetChanged();
+            }
+        }, spanndable);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(babAdapter);
     }
 }

@@ -18,12 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.ubp.student.kumpulanhadis.BulkData;
 import com.ubp.student.kumpulanhadis.R;
-import com.ubp.student.kumpulanhadis.adapter.KitabAdapter;
-import com.ubp.student.kumpulanhadis.contract.KitabContract;
-import com.ubp.student.kumpulanhadis.model.KitabModel;
-import com.ubp.student.kumpulanhadis.presenter.KitabPresenter;
+import com.ubp.student.kumpulanhadis.adapter.ImamAdapter;
+import com.ubp.student.kumpulanhadis.clients.model.ImamModel;
+import com.ubp.student.kumpulanhadis.contract.ImamContract;
+import com.ubp.student.kumpulanhadis.presenter.ImamPresenter;
 import com.ubp.student.kumpulanhadis.util.Static;
 
 import java.util.ArrayList;
@@ -33,11 +32,11 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, KitabContract.View {
+        implements NavigationView.OnNavigationItemSelectedListener, ImamContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private KitabContract.Presenter presenter;
+    private ImamContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initPresenter() {
-        presenter = new KitabPresenter(this);
+        presenter = new ImamPresenter(this);
         presenter.doGetData();
     }
 
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-//        if (id == R.id.action_search) {
+//        if (id == R.id.favourite) {
 //
 //            return true;
 //        }
@@ -114,29 +113,45 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//          }
+        if (id == R.id.nav_favourite) {
+            startActivity(new Intent(getApplicationContext(), FavouriteActivity.class));
+        }else if (id == R.id.nav_sumber) {
+            startActivity(new Intent(getApplicationContext(), SumberActivity.class));
+        }else if (id == R.id.nav_tentang) {
+            startActivity(new Intent(getApplicationContext(), TentangActivity.class));
+        }else if (id == R.id.nav_notif) {
+            startActivity(new Intent(getApplicationContext(), PemberitahuanActivity.class));
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
-    public void doShowData(ArrayList<KitabModel> list) {
+    public void doShowData(ArrayList<ImamModel> list) {
 
+        setAdapter(list);
+    }
+
+    private void setAdapter(ArrayList<ImamModel> list) {
+//        ArrayList<ImamModel> list1 = new ArrayList<>();
+//        list1.addAll(list);
+//        list1.addAll(list);
+//        list1.addAll(list);
+//        list1.addAll(list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        KitabAdapter kitabAdapter = new KitabAdapter(getApplicationContext(), list, new KitabAdapter.OnItemClickListener() {
+        ImamAdapter imamAdapter = new ImamAdapter(getApplicationContext(), list, new ImamAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(KitabModel model) {
-                Intent intent = new Intent(getApplicationContext(), BabActivity.class);
-                intent.putExtra(Static.KITAB_MODEL, model);
+            public void onItemClick(ImamModel model) {
+                Intent intent = new Intent(getApplicationContext(), KitabActivity.class);
+                intent.putExtra(Static.IMAM_ID, model.getId());
                 startActivity(intent);
             }
         });
+
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(kitabAdapter);
-
+        recyclerView.setAdapter(imamAdapter);
     }
+
 }

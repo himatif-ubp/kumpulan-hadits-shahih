@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ubp.student.kumpulanhadis.R;
-import com.ubp.student.kumpulanhadis.model.KitabModel;
+import com.ubp.student.kumpulanhadis.clients.model.ImamModel;
+import com.ubp.student.kumpulanhadis.clients.model.KitabModel;
 
 import java.util.ArrayList;
 
@@ -47,16 +48,10 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final KitabModel model = list.get(position);
-        holder.tvJudul.setText("Kitab : "+model.getKitab());
-        if(model.getHaditsKode() == 1) {
-            holder.tvDeskripsi.setText("Hadits Shahih Al Bukhari");
-        }else if(model.getHaditsKode() == 2){
-            holder.tvDeskripsi.setText("Hadits Shahih Muslim");
-        }else{
-            holder.tvDeskripsi.setText("");
-        }
+        ImamModel imamModel = ImamModel.findById(ImamModel.class, model.getIdImam());
+        holder.tvJudul.setText(model.getNama());
+        holder.tvImam.setText(imamModel.getNamaImam());
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +73,8 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
         TextView tvDeskripsi;
         @BindView(R.id.iv_thumbnail)
         ImageView ivThumbnail;
+        @BindView(R.id.tv_imam)
+        TextView tvImam;
 
         public ViewHolder(View itemView) {
             super(itemView);
