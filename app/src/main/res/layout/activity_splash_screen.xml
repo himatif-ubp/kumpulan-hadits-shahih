@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.ubp.student.kumpulanhadis.activity.SplashScreenActivity">
+    tools:context="com.ubp.student.kumpulanhaditsshahih.activity.SplashScreenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_marginBottom="10dp"
-            app:srcCompat="@drawable/ubp_logo_hd" />
+            app:srcCompat="@drawable/log_app" />
 
         <TextView
             android:id="@+id/textView2"

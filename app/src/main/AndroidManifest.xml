@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ubp.student.kumpulanhadis">
+    package="com.ubp.student.kumpulanhaditsshahih">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.orm.SugarApp"
+        android:name=".Application"
         android:allowBackup="true"
-        android:icon="@mipmap/ubp_logo"
+        android:icon="@mipmap/logo_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ubp_logo"
+        android:roundIcon="@mipmap/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
@@ -25,17 +25,17 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.ubp.student.kumpulanhadis" />
+            android:value="com.ubp.student.kumpulanhaditsshahih" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.ubp.student.kumpulanhaditsshahih.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.ubp.student.kumpulanhaditsshahih.activity.HomeActivity"
             android:label="@string/title_activity_home" />
         <activity
-            android:name=".activity.SplashScreenActivity"
+            android:name="com.ubp.student.kumpulanhaditsshahih.activity.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,20 +43,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.BabActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.BabActivity" />
         <activity
-            android:name=".activity.DeskripsiActivity"
+            android:name="com.ubp.student.kumpulanhaditsshahih.activity.DeskripsiActivity"
             android:label="@string/title_activity_deskripsi"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ListActivity" />
-        <activity android:name=".activity.KitabActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.ListActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.KitabActivity" />
         <activity
-            android:name=".activity.HaditsActivity"
+            android:name="com.ubp.student.kumpulanhaditsshahih.activity.HaditsActivity"
             android:theme="@style/MyNoActionBarShadowTheme" />
-        <activity android:name=".activity.FavouriteActivity" />
-        <activity android:name=".activity.SumberActivity" />
-        <activity android:name=".activity.TentangActivity" />
-        <activity android:name=".activity.PemberitahuanActivity"></activity>
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.FavouriteActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.SumberActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.TentangActivity" />
+        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.PemberitahuanActivity"></activity>
+        <service android:name="com.ubp.student.kumpulanhaditsshahih.service.MessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.ubp.student.kumpulanhaditsshahih.service.InstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

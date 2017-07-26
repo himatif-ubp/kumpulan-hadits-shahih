@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fcfdce"
-    tools:context="com.ubp.student.kumpulanhadis.activity.HaditsActivity">
+    tools:context="com.ubp.student.kumpulanhaditsshahih.activity.HaditsActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
