@@ -87,7 +87,11 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
                 listenerFav.onItemClick(model);
             }
         });
-        holder.tvTime.setText(getDateInMillis(model.getCreatedAt()));
+        if(getDateInMillis(model.getCreatedAt()) == null || getDateInMillis(model.getCreatedAt()).isEmpty()){
+            holder.tvTime.setText("baru saja");
+        }else {
+            holder.tvTime.setText(getDateInMillis(model.getCreatedAt()));
+        }
         if(spanndable != null){
 //            Spannable spannable = new SpannableString(kitabModel.getNama());
 //            spannable.setSpan(new ForegroundColorSpan(Color.YELLOW), kitabModel.getNama().indexOf(spanndable), kitabModel.getNama().indexOf(spanndable)+spanndable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
