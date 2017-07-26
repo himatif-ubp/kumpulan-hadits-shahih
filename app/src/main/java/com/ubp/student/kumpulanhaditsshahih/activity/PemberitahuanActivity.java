@@ -1,5 +1,6 @@
 package com.ubp.student.kumpulanhaditsshahih.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.ubp.student.kumpulanhaditsshahih.clients.model.BabModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.NotifModel;
 import com.ubp.student.kumpulanhaditsshahih.contract.BabContract;
 import com.ubp.student.kumpulanhaditsshahih.presenter.BabPresenter;
+import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import java.util.ArrayList;
 
@@ -66,7 +68,9 @@ public class PemberitahuanActivity extends AppCompatActivity implements BabContr
             adapter = new PemberitahuanAdapter(getApplicationContext(), list, new PemberitahuanAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(NotifModel model) {
-
+                    Intent intent = new Intent(getApplicationContext(), HaditsActivity.class);
+                    intent.putExtra(Static.BAB_ID, model.getId());
+                    startActivity(intent);
                 }
             }, new PemberitahuanAdapter.OnItemFavClickListener() {
                 @Override

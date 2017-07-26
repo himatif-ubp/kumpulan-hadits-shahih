@@ -59,15 +59,24 @@ public class MessageService extends FirebaseMessagingService {
                         .setContentTitle("Hadits Hari Ini")
                         .setContentText(notifModel.getNama());
         Intent resultIntent = new Intent(this, PemberitahuanActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(PemberitahuanActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//        stackBuilder.addParentStack(PemberitahuanActivity.class);
+//        stackBuilder.addNextIntent(resultIntent);
+//        PendingIntent resultPendingIntent =
+//                stackBuilder.getPendingIntent(
+//                        0,
+//                        PendingIntent.FLAG_UPDATE_CURRENT
+//                );
+//        mBuilder.setContentIntent(resultPendingIntent);
         PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
+                PendingIntent.getActivity(
+                        this,
                         0,
+                        resultIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setAutoCancel(true);
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(1001, mBuilder.build());
