@@ -35,10 +35,6 @@ public class KitabActivity extends AppCompatActivity implements KitabContract.Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (AppCompatDelegate.getDefaultNightMode()
-                == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.AppThemeNight);
-        }
         setContentView(R.layout.activity_kitab);
         ButterKnife.bind(this);
         setTitle("Kitab");

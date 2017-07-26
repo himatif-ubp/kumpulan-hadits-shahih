@@ -22,5 +22,11 @@ public class Static {
     public static final String TOKEN_KEY = "token_key";
     public static final String LATEST_HADITS = "latest_hadits";
     public static final String LATEST_HADITS_KEY = "latest_hadits_key";
+    public static final String KEY_FONT = "KEY_FONT";
+    public static final int FONT_UNDER = 4;
+    public static final int FONT_KECIL = 16;
+    public static final int FONT_SEDANG = 20;
+    public static final int FONT_BESAR = 26;
+    public static final int FONT_SANGAT_BESAR = 30;
 
 }

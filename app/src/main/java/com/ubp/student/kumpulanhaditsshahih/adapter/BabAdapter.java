@@ -14,6 +14,8 @@ import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.BabModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.ImamModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.KitabModel;
+import com.ubp.student.kumpulanhaditsshahih.util.MyPref;
+import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import java.util.ArrayList;
 
@@ -60,6 +62,24 @@ public class BabAdapter extends RecyclerView.Adapter<BabAdapter.ViewHolder> {
         final BabModel model = list.get(position);
         KitabModel kitabModel = KitabModel.findById(KitabModel.class, model.getIdKitab());
         ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
+        int sizeFont = MyPref.getInt(context, Static.KEY_FONT);
+        if(sizeFont == 0){
+            holder.tvJudul.setTextSize(Static.FONT_KECIL);
+            holder.tvKitab.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+        }else if(sizeFont == 1){
+            holder.tvJudul.setTextSize(Static.FONT_SEDANG);
+            holder.tvKitab.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+        }else if(sizeFont == 2){
+            holder.tvJudul.setTextSize(Static.FONT_BESAR);
+            holder.tvKitab.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+        }else if(sizeFont == 3){
+            holder.tvJudul.setTextSize(Static.FONT_SANGAT_BESAR);
+            holder.tvKitab.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+        }
         holder.tvJudul.setText(model.getNama());
         holder.tvDeskripsi.setVisibility(View.GONE);
         holder.tvImam.setText(imamModel.getNamaImam());

@@ -49,7 +49,7 @@ public class BabGridAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_bab_grid, null);
         }
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_image);
+//        ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_image);
         TextView textView = (TextView) convertView.findViewById(R.id.tv_text);
 
         BabModel2 babModel2 = list.get(position);

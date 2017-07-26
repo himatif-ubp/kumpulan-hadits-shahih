@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.ImamModel;
+import com.ubp.student.kumpulanhaditsshahih.util.MyPref;
+import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import java.util.ArrayList;
 
@@ -47,6 +49,16 @@ public class ImamAdapter extends RecyclerView.Adapter<ImamAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ImamModel model = list.get(position);
+        int sizeFont = MyPref.getInt(context, Static.KEY_FONT);
+        if(sizeFont == 0){
+            holder.tvJudul.setTextSize(Static.FONT_KECIL);
+        }else if(sizeFont == 1){
+            holder.tvJudul.setTextSize(Static.FONT_SEDANG);
+        }else if(sizeFont == 2){
+            holder.tvJudul.setTextSize(Static.FONT_BESAR);
+        }else if(sizeFont == 3){
+            holder.tvJudul.setTextSize(Static.FONT_SANGAT_BESAR);
+        }
         holder.tvJudul.setText(model.getNamaImam());
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.BabModel;
@@ -46,6 +47,8 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     TextView tvKitab;
     @BindView(R.id.tv_isi)
     TextView tvIsi;
+    @BindView(R.id.id_ukuran)
+    TextView tvUkuran;
     private HaditsContract.Presenter presenter;
 
     @Override
@@ -60,7 +63,52 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
         initPresenter();
         initOnClick();
         initTextData();
+        initFontSize();
+        tvUkuran.setVisibility(View.GONE);
+        int sizeFont = MyPref.getInt(getApplicationContext(), Static.KEY_FONT);
+        if(sizeFont == 0){
+            tvBab.setTextSize(Static.FONT_KECIL+2);
+            tvKitab.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            tvImam.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            tvIsi.setTextSize(Static.FONT_KECIL);
+            tvBagikan.setTextSize(Static.FONT_KECIL);
+            tvSalin.setTextSize(Static.FONT_KECIL);
+        }else if(sizeFont == 1){
+            tvBab.setTextSize(Static.FONT_SEDANG+2);
+            tvKitab.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            tvImam.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            tvIsi.setTextSize(Static.FONT_SEDANG);
+            tvBagikan.setTextSize(Static.FONT_SEDANG);
+            tvSalin.setTextSize(Static.FONT_SEDANG);
+        }else if(sizeFont == 2){
+            tvBab.setTextSize(Static.FONT_BESAR+2);
+            tvKitab.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            tvImam.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            tvIsi.setTextSize(Static.FONT_BESAR);
+            tvBagikan.setTextSize(Static.FONT_BESAR);
+            tvSalin.setTextSize(Static.FONT_BESAR);
+        }else if(sizeFont == 3){
+            tvBab.setTextSize(Static.FONT_SANGAT_BESAR+2);
+            tvKitab.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            tvImam.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            tvIsi.setTextSize(Static.FONT_SANGAT_BESAR);
+            tvBagikan.setTextSize(Static.FONT_SANGAT_BESAR);
+            tvSalin.setTextSize(Static.FONT_SANGAT_BESAR);
+        }
+    }
+
+    private void initFontSize() {
         MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, true);
+        int sizeFont = MyPref.getInt(getApplicationContext(), Static.KEY_FONT);
+        if(sizeFont == 0){
+            tvIsi.setTextSize(Static.FONT_KECIL);
+        }else if(sizeFont == 1){
+            tvIsi.setTextSize(Static.FONT_SEDANG);
+        }else if(sizeFont == 2){
+            tvIsi.setTextSize(Static.FONT_BESAR);
+        }else if(sizeFont == 3){
+            tvIsi.setTextSize(Static.FONT_SANGAT_BESAR);
+        }
     }
 
     private void initTextData() {
@@ -73,9 +121,9 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
 
     private void getIDData() {
         id = getIntent().getLongExtra(Static.BAB_ID, 0);
-        if(MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)){
+        if (MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)) {
             id = MyPref.getInt(getApplicationContext(), Static.LATEST_HADITS_KEY);
-        }else{
+        } else {
             MyPref.putInt(getApplicationContext(), Static.LATEST_HADITS_KEY, Integer.valueOf((int) id));
         }
         babModel = BabModel.findById(BabModel.class, id);
@@ -116,7 +164,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
             public void onClick(View v) {
                 KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
                 ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
-                String textShared = "HR. "+imamModel.getNamaImam()+"\nKitab "+kitabModel.getNama()+"\nBAB : "+babModel.getNama()+"\n\n"+tvIsi.getText().toString()+"Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
+                String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(babModel.getNama(), textShared);
                 clipboard.setPrimaryClip(clip);
@@ -129,7 +177,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
             public void onClick(View v) {
                 KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
                 ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
-                String textShared = "HR. "+imamModel.getNamaImam()+"\nKitab "+kitabModel.getNama()+"\nBAB : "+babModel.getNama()+"\n"+tvIsi.getText().toString()+"Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
+                String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, textShared);
@@ -151,9 +199,9 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(cleartask()){
+                if (cleartask()) {
                     MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, false);
-                }else{
+                } else {
                     finish();
                 }
                 return true;
@@ -180,7 +228,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     }
 
     private boolean cleartask() {
-        if(MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)){
+        if (MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

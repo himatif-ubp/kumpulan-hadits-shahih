@@ -16,6 +16,13 @@ import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.activity.PemberitahuanActivity;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.NotifModel;
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Dizzay on 7/22/2017.
  */
@@ -33,6 +40,12 @@ public class MessageService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData().get("data"));
             String json = remoteMessage.getData().get("data");
             NotifModel notifModel = new Gson().fromJson(json, NotifModel.class);
+//            2017-07-16 20:32:47
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date today = Calendar.getInstance().getTime();
+            String reportDate = df.format(today);
+
+            notifModel.setCreatedAt(reportDate);
             SugarRecord.save(notifModel);
             sendNotification(notifModel);
         }

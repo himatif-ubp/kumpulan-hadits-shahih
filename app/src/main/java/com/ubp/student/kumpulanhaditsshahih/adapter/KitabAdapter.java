@@ -13,6 +13,8 @@ import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.BabModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.ImamModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.KitabModel;
+import com.ubp.student.kumpulanhaditsshahih.util.MyPref;
+import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,24 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
         int size = BabModel.find(BabModel.class, "id_kitab = ?", new String[]{String.valueOf(model.getId())}).size();
         holder.tvJudul.setText(model.getNama());
         holder.tvImam.setText(imamModel.getNamaImam());
+        int sizeFont = MyPref.getInt(context, Static.KEY_FONT);
+        if(sizeFont == 0){
+            holder.tvJudul.setTextSize(Static.FONT_KECIL);
+            holder.tvImam.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            holder.tvCount.setTextSize(Static.FONT_KECIL-(Static.FONT_UNDER*2));
+        }else if(sizeFont == 1){
+            holder.tvJudul.setTextSize(Static.FONT_SEDANG);
+            holder.tvImam.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            holder.tvCount.setTextSize(Static.FONT_SEDANG-(Static.FONT_UNDER*2));
+        }else if(sizeFont == 2){
+            holder.tvJudul.setTextSize(Static.FONT_BESAR);
+            holder.tvImam.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            holder.tvCount.setTextSize(Static.FONT_BESAR-(Static.FONT_UNDER*2));
+        }else if(sizeFont == 3){
+            holder.tvJudul.setTextSize(Static.FONT_SANGAT_BESAR);
+            holder.tvImam.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            holder.tvCount.setTextSize(Static.FONT_SANGAT_BESAR-(Static.FONT_UNDER*2));
+        }
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +82,7 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
             }
         });
 //        holder.tvCount.setVisibility(View.GONE);
-        holder.tvCount.setText(String.valueOf(size));
+        holder.tvCount.setText(String.valueOf(size)+" Hadits");
     }
 
     @Override

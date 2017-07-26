@@ -39,10 +39,6 @@ public class BabActivity extends AppCompatActivity implements BabContract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (AppCompatDelegate.getDefaultNightMode()
-                == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.AppThemeNight);
-        }
         setContentView(R.layout.activity_bab);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -3,6 +3,7 @@ package com.ubp.student.kumpulanhaditsshahih.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +28,10 @@ import com.ubp.student.kumpulanhaditsshahih.contract.ImamContract;
 import com.ubp.student.kumpulanhaditsshahih.presenter.ImamPresenter;
 import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -43,18 +48,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (AppCompatDelegate.getDefaultNightMode()
-                == AppCompatDelegate.MODE_NIGHT_YES) {
-//            setTheme(R.style.AppThemeNight);
-        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         Toolbar toolbar = initToolbar();
         initNavigationDrawer(toolbar);
+
         initPresenter();
-        AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         new BulkData().lastSeen(getApplicationContext());
     }
 
@@ -64,19 +65,13 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
     private Toolbar initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (AppCompatDelegate.getDefaultNightMode()
-                == AppCompatDelegate.MODE_NIGHT_YES) {
-            toolbar.setPopupTheme(R.style.AppThemeNight_AppBarOverlay);
-        }else{
-            toolbar.setPopupTheme(R.style.AppTheme_AppBarOverlay);
-        }
         setSupportActionBar(toolbar);
         return toolbar;
     }
@@ -88,17 +83,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-        }
+//        MenuInflater menuInflater = getMenuInflater();
+//        menuInflater.inflate(R.menu.main, menu);
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = null;
+//        if (searchItem != null) {
+//            searchView = (SearchView) searchItem.getActionView();
+//        }
+//        if (searchView != null) {
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+//        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -136,6 +131,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), TentangActivity.class));
         }else if (id == R.id.nav_notif) {
             startActivity(new Intent(getApplicationContext(), PemberitahuanActivity.class));
+        }else if (id == R.id.nav_setting) {
+            startActivity(new Intent(getApplicationContext(), SettingActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -169,4 +166,14 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(imamAdapter);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(String data){
+        presenter.doGetData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

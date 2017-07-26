@@ -28,14 +28,14 @@
             android:value="com.ubp.student.kumpulanhaditsshahih" />
 
         <activity
-            android:name="com.ubp.student.kumpulanhaditsshahih.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.ubp.student.kumpulanhaditsshahih.activity.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home" />
         <activity
-            android:name="com.ubp.student.kumpulanhaditsshahih.activity.SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,30 +43,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.BabActivity" />
+        <activity android:name=".activity.BabActivity" />
         <activity
-            android:name="com.ubp.student.kumpulanhaditsshahih.activity.DeskripsiActivity"
+            android:name=".activity.DeskripsiActivity"
             android:label="@string/title_activity_deskripsi"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.ListActivity" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.KitabActivity" />
+        <activity android:name=".activity.ListActivity" />
+        <activity android:name=".activity.KitabActivity" />
         <activity
-            android:name="com.ubp.student.kumpulanhaditsshahih.activity.HaditsActivity"
+            android:name=".activity.HaditsActivity"
             android:theme="@style/MyNoActionBarShadowTheme" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.FavouriteActivity" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.SumberActivity" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.TentangActivity" />
-        <activity android:name="com.ubp.student.kumpulanhaditsshahih.activity.PemberitahuanActivity"></activity>
-        <service android:name="com.ubp.student.kumpulanhaditsshahih.service.MessageService">
+        <activity android:name=".activity.FavouriteActivity" />
+        <activity android:name=".activity.SumberActivity" />
+        <activity android:name=".activity.TentangActivity" />
+        <activity android:name=".activity.PemberitahuanActivity" />
+
+        <service android:name=".service.MessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.ubp.student.kumpulanhaditsshahih.service.InstanceIDService">
+        <service android:name=".service.InstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activity.SettingActivity">
+
+        </activity>
     </application>
 
 </manifest>
