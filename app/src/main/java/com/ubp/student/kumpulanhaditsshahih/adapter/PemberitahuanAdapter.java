@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ubp.student.kumpulanhaditsshahih.R;
+import com.ubp.student.kumpulanhaditsshahih.clients.model.KitabModel;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.NotifModel;
+import com.ubp.student.kumpulanhaditsshahih.util.MyPref;
+import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -63,12 +66,32 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final NotifModel model = list.get(position);
-//        KitabModel kitabModel = KitabModel.findById(KitabModel.class, model.getIdKitab());
-//        ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
+        KitabModel kitabModel = KitabModel.findById(KitabModel.class, model.getIdKitab());
+        int sizeFont = MyPref.getInt(context, Static.KEY_FONT);
+        if(sizeFont == 0){
+            holder.tvJudul.setTextSize(Static.FONT_KECIL);
+            holder.tvKitab.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+            holder.tvTime.setTextSize(Static.FONT_KECIL-Static.FONT_UNDER);
+        }else if(sizeFont == 1){
+            holder.tvJudul.setTextSize(Static.FONT_SEDANG);
+            holder.tvKitab.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+            holder.tvTime.setTextSize(Static.FONT_SEDANG-Static.FONT_UNDER);
+        }else if(sizeFont == 2){
+            holder.tvJudul.setTextSize(Static.FONT_BESAR);
+            holder.tvKitab.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+            holder.tvTime.setTextSize(Static.FONT_BESAR-Static.FONT_UNDER);
+        }else if(sizeFont == 3){
+            holder.tvJudul.setTextSize(Static.FONT_SANGAT_BESAR);
+            holder.tvKitab.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            holder.tvImam.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+            holder.tvTime.setTextSize(Static.FONT_SANGAT_BESAR-Static.FONT_UNDER);
+        }
+
         holder.tvJudul.setText(model.getNama());
         holder.tvDeskripsi.setVisibility(View.GONE);
-//        holder.tvImam.setText(imamModel.getNamaImam());
-//        holder.tvKitab.setText("Kitab : "+kitabModel.getNama());
         Glide.with(context).load(R.drawable.nav).into(holder.ivThumbnail);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,17 +111,15 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
             }
         });
         if(getDateInMillis(model.getCreatedAt()) == null || getDateInMillis(model.getCreatedAt()).isEmpty()){
-            holder.tvTime.setText("baru saja");
+            holder.tvTime.setText("Baru saja");
         }else {
             holder.tvTime.setText(getDateInMillis(model.getCreatedAt()));
         }
         if(spanndable != null){
-//            Spannable spannable = new SpannableString(kitabModel.getNama());
-//            spannable.setSpan(new ForegroundColorSpan(Color.YELLOW), kitabModel.getNama().indexOf(spanndable), kitabModel.getNama().indexOf(spanndable)+spanndable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            holder.tvJudul.setText(spannable);
             String set = model.getNama().replace(spanndable, "<font color='green'>"+spanndable+"</font>");
             holder.tvJudul.setText(Html.fromHtml(set));
         }
+        holder.tvKitab.setText("Kitab : "+kitabModel.getNama());
     }
 
     public static String getDateInMillis(String srcDate) {
