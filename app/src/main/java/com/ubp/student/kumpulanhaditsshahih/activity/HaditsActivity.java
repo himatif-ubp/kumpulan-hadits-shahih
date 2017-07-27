@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,6 +52,13 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     @BindView(R.id.id_ukuran)
     TextView tvUkuran;
     private HaditsContract.Presenter presenter;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_hadits, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,29 +171,37 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
         tvSalin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
-                ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
-                String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText(babModel.getNama(), textShared);
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(), "Berhasil di salin", Toast.LENGTH_SHORT).show();
+                salin();
             }
         });
 
         tvBagikan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
-                ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
-                String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, textShared);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                berbagi();
             }
         });
+    }
+
+    private void berbagi() {
+        KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
+        ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
+        String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textShared);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
+    private void salin() {
+        KitabModel kitabModel = KitabModel.findById(KitabModel.class, babModel.getIdKitab());
+        ImamModel imamModel = ImamModel.findById(ImamModel.class, kitabModel.getIdImam());
+        String textShared = "HR. " + imamModel.getNamaImam() + "\nKitab " + kitabModel.getNama() + "\nBAB : " + babModel.getNama() + "\n\n" + tvIsi.getText().toString() + "Aplikasi Kumpulan Hadits-Hadits Shahih oleh Universitas Buana Perjuangan Karawang";
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(babModel.getNama(), textShared);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getApplicationContext(), "Berhasil di salin", Toast.LENGTH_SHORT).show();
     }
 
     private void backpresButton() {
@@ -204,6 +221,12 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
                 } else {
                     finish();
                 }
+                return true;
+            case R.id.action_salin:
+                salin();
+                return true;
+            case R.id.action_bagikan:
+                berbagi();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

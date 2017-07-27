@@ -81,8 +81,7 @@ public class KitabAdapter extends RecyclerView.Adapter<KitabAdapter.ViewHolder> 
                 listener.onItemClick(model);
             }
         });
-//        holder.tvCount.setVisibility(View.GONE);
-        holder.tvCount.setText(String.valueOf(size)+" Hadits");
+        holder.tvCount.setText(String.valueOf(size)+" BAB");
     }
 
     @Override

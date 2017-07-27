@@ -128,9 +128,9 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
         DateTime now = new DateTime();
         Period period = new Period(dt, now);
 
-        PeriodFormatter formatter;
+        PeriodFormatter formatter = null;
 
-        if(period.getHours() <= 1 && period.getDays() <= 1){
+        if(period.getHours() <= 1 && period.getDays() <= 0){
             formatter = new PeriodFormatterBuilder()
 //                .appendSeconds().appendSuffix(" seconds ago\n")
                 .appendMinutes().appendSuffix(" menit")
@@ -141,11 +141,21 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
 //                .appendYears().appendSuffix(" years ago\n")
                     .printZeroNever()
                     .toFormatter();
-        }else{
+        }else if(period.getHours() > 1 && period.getDays() <= 0){
             formatter = new PeriodFormatterBuilder()
 //                .appendSeconds().appendSuffix(" seconds ago\n")
 //                .appendMinutes().appendSuffix(" minutes ago\n")
                     .appendHours().appendSuffix(" jam ")
+//                .appendWeeks().appendSuffix(" weeks ago\n")
+//                .appendMonths().appendSuffix(" months ago\n")
+//                .appendYears().appendSuffix(" years ago\n")
+                    .printZeroNever()
+                    .toFormatter();
+        }else if(period.getDays() > 0 && period.getDays() <= 7){
+            formatter = new PeriodFormatterBuilder()
+//                .appendSeconds().appendSuffix(" seconds ago\n")
+//                .appendMinutes().appendSuffix(" minutes ago\n")
+//                    .appendHours().appendSuffix(" jam ")
                     .appendDays().appendSuffix(" hari")
 //                .appendWeeks().appendSuffix(" weeks ago\n")
 //                .appendMonths().appendSuffix(" months ago\n")
@@ -154,7 +164,12 @@ public class PemberitahuanAdapter extends RecyclerView.Adapter<PemberitahuanAdap
                     .toFormatter();
         }
 
-        String elapsed = formatter.print(period);
+        String elapsed;
+        if(formatter != null) {
+            elapsed = formatter.print(period);
+        }else{
+            elapsed = srcDate;
+        }
         return elapsed;
     }
 

@@ -51,20 +51,23 @@ public class MessageService extends FirebaseMessagingService {
     }
 
     public void sendNotification(NotifModel notifModel) {
+        int requestID = (int) System.currentTimeMillis();
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ubp_logo)
                         .setContentTitle("Hadits Hari Ini")
                         .setContentText(notifModel.getNama());
         Intent resultIntent = new Intent(this, PemberitahuanActivity.class);
-
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         this,
-                        0,
+                        requestID,
                         resultIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
+
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setAutoCancel(true);
         NotificationManager mNotificationManager =

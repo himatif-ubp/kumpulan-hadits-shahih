@@ -17,7 +17,7 @@
         android:id="@+id/imageView"
         android:layout_width="79dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ubp_logo"
+        app:srcCompat="@mipmap/logo_app"
         android:layout_weight="0.40" />
 
     <TextView
@@ -31,6 +31,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Universitas Buana Perjuangan Karawang" />
+        android:text="Versi 1.0.0" />
 
 </LinearLayout>

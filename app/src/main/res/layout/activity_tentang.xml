@@ -20,7 +20,7 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/ubp_logo_hd" />
+            app:srcCompat="@drawable/log_app" />
 
         <TextView
             android:id="@+id/textView6"
@@ -35,7 +35,7 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Versi 1.0.0 BETA"
+            android:text="Versi 1.0.0"
             android:textSize="16dp" />
 
         <TextView
@@ -78,7 +78,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agung Adhi Andika"
+                android:text="Agung Andika"
                 android:textStyle="bold" />
 
             <TextView

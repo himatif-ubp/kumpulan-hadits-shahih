@@ -16,7 +16,7 @@ public class BabRepository implements BabContract.Repository {
 
     @Override
     public ArrayList<BabModel> getAllData(int id) {
-        List<BabModel> list = BabModel.find(BabModel.class, "id_kitab = ?", new String[]{String.valueOf(id)});
+        List<BabModel> list = BabModel.find(BabModel.class, "id_kitab = ?", new String[]{String.valueOf(id)}, null, "nama asc", null);
         ArrayList<BabModel> models = new ArrayList<>();
         models.addAll(list);
         return models;
@@ -24,7 +24,7 @@ public class BabRepository implements BabContract.Repository {
 
     @Override
     public ArrayList<BabModel> searchByText(String text) {
-        List<BabModel> data = KitabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where nama like '%"+text+"%'");
+        List<BabModel> data = KitabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where nama like '%"+text+"%' order by nama asc");
         ArrayList<BabModel> list = new ArrayList<>();
         list.addAll(data);
         return list;
@@ -32,7 +32,7 @@ public class BabRepository implements BabContract.Repository {
 
     @Override
     public ArrayList<BabModel> getAllDataFav() {
-        List<BabModel> list = BabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where IS_FAVORITE = 1");
+        List<BabModel> list = BabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where IS_FAVORITE = 1 order by nama asc");
         ArrayList<BabModel> models = new ArrayList<>();
         models.addAll(list);
         return models;
@@ -40,7 +40,7 @@ public class BabRepository implements BabContract.Repository {
 
     @Override
     public ArrayList<BabModel> getAllDataFavSearchByText(String text) {
-        List<BabModel> data = KitabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where nama like '%"+text+"%' and IS_FAVORITE = true");
+        List<BabModel> data = KitabModel.findWithQuery(BabModel.class, "select * from BAB_MODEL where nama like '%"+text+"%' and IS_FAVORITE = true order by nama asc");
         ArrayList<BabModel> list = new ArrayList<>();
         list.addAll(data);
         return list;
@@ -48,7 +48,7 @@ public class BabRepository implements BabContract.Repository {
 
     @Override
     public ArrayList<NotifModel> getAllDataNotif() {
-        List<NotifModel> data = KitabModel.listAll(NotifModel.class);
+        List<NotifModel> data = KitabModel.listAll(NotifModel.class, "created_at desc");
         ArrayList<NotifModel> list = new ArrayList<>();
         list.addAll(data);
         return list;
