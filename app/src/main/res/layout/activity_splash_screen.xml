@@ -42,17 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
-            android:text="Universitas Buana Perjuangan"
+            android:text="Versi 1.0.0"
             android:textAlignment="center"
             android:textColor="@color/icons" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Karawang"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light" />
     </LinearLayout>
 
 </RelativeLayout>

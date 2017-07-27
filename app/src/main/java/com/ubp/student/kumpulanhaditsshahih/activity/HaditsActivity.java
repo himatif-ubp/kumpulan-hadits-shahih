@@ -52,6 +52,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     @BindView(R.id.id_ukuran)
     TextView tvUkuran;
     private HaditsContract.Presenter presenter;
+    boolean isResume = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,6 +75,10 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
         initTextData();
         initFontSize();
         tvUkuran.setVisibility(View.GONE);
+        fontSizeInit();
+    }
+
+    void fontSizeInit() {
         int sizeFont = MyPref.getInt(getApplicationContext(), Static.KEY_FONT);
         if(sizeFont == 0){
             tvBab.setTextSize(Static.FONT_KECIL+2);
@@ -132,6 +137,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
         id = getIntent().getLongExtra(Static.BAB_ID, 0);
         if (MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)) {
             id = MyPref.getInt(getApplicationContext(), Static.LATEST_HADITS_KEY);
+            isResume = true;
         } else {
             MyPref.putInt(getApplicationContext(), Static.LATEST_HADITS_KEY, Integer.valueOf((int) id));
         }
@@ -219,6 +225,7 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
                 if (cleartask()) {
                     MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, false);
                 } else {
+                    MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, false);
                     finish();
                 }
                 return true;
@@ -246,16 +253,20 @@ public class HaditsActivity extends AppCompatActivity implements HaditsContract.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        cleartask();
-        MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, false);
+        if(!cleartask()){
+            MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, false);
+            finish();
+        }else {
+            MyPref.putBoolean(getApplicationContext(), Static.LATEST_HADITS, true);
+        }
     }
 
     private boolean cleartask() {
-        if (MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS)) {
+        if (isResume) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-        return MyPref.getBoolean(getApplicationContext(), Static.LATEST_HADITS);
+        return isResume;
     }
 }
