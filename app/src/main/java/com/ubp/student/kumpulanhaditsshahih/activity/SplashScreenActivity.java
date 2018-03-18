@@ -16,15 +16,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        if(!MyPref.getBoolean(getApplicationContext(), Static.LOADED)){
-            BulkData bulkData = new BulkData();
-            bulkData.imamData(getApplicationContext());
-            bulkData.kitabData(getApplicationContext());
-            bulkData.babData(getApplicationContext());
-            bulkData.haditsData(getApplicationContext());
-            bulkData.registerFirst(getApplicationContext());
-            MyPref.putBoolean(getApplicationContext(), Static.LOADED, true);
-        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -20,12 +20,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ubp.student.kumpulanhaditsshahih.BulkData;
 import com.ubp.student.kumpulanhaditsshahih.R;
 import com.ubp.student.kumpulanhaditsshahih.adapter.ImamAdapter;
 import com.ubp.student.kumpulanhaditsshahih.clients.model.ImamModel;
 import com.ubp.student.kumpulanhaditsshahih.contract.ImamContract;
 import com.ubp.student.kumpulanhaditsshahih.presenter.ImamPresenter;
+import com.ubp.student.kumpulanhaditsshahih.util.MyPref;
 import com.ubp.student.kumpulanhaditsshahih.util.Static;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +59,39 @@ public class MainActivity extends AppCompatActivity
 
         initPresenter();
         new BulkData().lastSeen(getApplicationContext());
+        final MaterialDialog materialDialog = new MaterialDialog.Builder(MainActivity.this)
+                .title("Loading..")
+                .content("Memuat data..")
+                .cancelable(false).build();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(!MyPref.getBoolean(getApplicationContext(), Static.LOADED)){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            materialDialog.show();
+                        }
+                    });
+//                    https://goo.gl/tWqd5Q
+                    BulkData bulkData = new BulkData();
+                    bulkData.imamData(getApplicationContext());
+                    bulkData.kitabData(getApplicationContext());
+                    bulkData.babData(getApplicationContext());
+                    bulkData.haditsData(getApplicationContext());
+                    bulkData.registerFirst(getApplicationContext());
+                    MyPref.putBoolean(getApplicationContext(), Static.LOADED, true);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            materialDialog.dismiss();
+                            presenter.doGetData();
+                        }
+                    });
+                }
+            }
+        }).start();
+
     }
 
     private void initNavigationDrawer(Toolbar toolbar) {

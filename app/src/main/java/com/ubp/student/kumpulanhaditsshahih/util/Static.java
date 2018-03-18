@@ -28,5 +28,9 @@ public class Static {
     public static final int FONT_SEDANG = 20;
     public static final int FONT_BESAR = 26;
     public static final int FONT_SANGAT_BESAR = 30;
+    public static final String HADITS_JSON_KEY = "hadits.json";
+    public static final String IMAM_JSON_KEY = "imam.json";
+    public static final String BAB_JSON_KEY = "bab.json";
+    public static final String KITAB_JSON_KEY = "kitab.json";
 
 }
